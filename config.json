@@ -1,0 +1,8 @@
+{
+    "DATABASE_FILE": "tezgah_takip.db",
+    "BACKUP_DIR": "backups",
+    "PASSWORD": "inanbak\u0131m",
+    "GITHUB_USERNAME": "kullanici_adi",
+    "REPO_NAME": "TezgahTakipQt",
+    "CURRENT_VERSION": "1.0.0"
+}
