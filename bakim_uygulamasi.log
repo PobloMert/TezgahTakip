@@ -1,0 +1,52 @@
+2025-05-14 16:13:36,316 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-14 16:13:37,079 - INFO - [Pil Deðiþim] Kayýtlarý yüklendi.
+2025-05-14 16:13:37,094 - INFO - [Hatýrlatýcý] Kontrol tamamlandý.
+2025-05-14 16:13:37,097 - DEBUG - Starting new HTTPS connection (1): api.github.com:443
+2025-05-14 16:13:37,383 - DEBUG - https://api.github.com:443 "GET /repos/PobloMert/TezgahTakip/releases/latest HTTP/1.1" 200 771
+2025-05-14 16:14:22,885 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-14 16:14:23,665 - INFO - [Pil Deðiþim] Kayýtlarý yüklendi.
+2025-05-14 16:14:23,682 - INFO - [Hatýrlatýcý] Kontrol tamamlandý.
+2025-05-14 16:14:23,689 - DEBUG - Starting new HTTPS connection (1): api.github.com:443
+2025-05-14 16:14:24,005 - DEBUG - https://api.github.com:443 "GET /repos/PobloMert/TezgahTakip/releases/latest HTTP/1.1" 200 771
+2025-05-14 16:15:39,625 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-14 16:15:40,434 - INFO - [Pil Deðiþim] Kayýtlarý yüklendi.
+2025-05-14 16:15:40,451 - INFO - [Hatýrlatýcý] Kontrol tamamlandý.
+2025-05-14 16:15:40,453 - DEBUG - Starting new HTTPS connection (1): api.github.com:443
+2025-05-14 16:15:40,753 - DEBUG - https://api.github.com:443 "GET /repos/PobloMert/TezgahTakip/releases/latest HTTP/1.1" 200 771
+2025-05-14 16:16:31,811 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-14 16:16:32,655 - INFO - [Pil Deðiþim] Kayýtlarý yüklendi.
+2025-05-14 16:16:32,675 - INFO - [Hatýrlatýcý] Kontrol tamamlandý.
+2025-05-14 16:16:32,678 - DEBUG - Starting new HTTPS connection (1): api.github.com:443
+2025-05-14 16:16:32,969 - DEBUG - https://api.github.com:443 "GET /repos/PobloMert/TezgahTakip/releases/latest HTTP/1.1" 200 771
+2025-05-14 16:18:03,984 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-14 16:18:04,841 - INFO - [Pil Deðiþim] Kayýtlarý yüklendi.
+2025-05-14 16:18:04,862 - INFO - [Hatýrlatýcý] Kontrol tamamlandý.
+2025-05-14 16:18:04,864 - DEBUG - Starting new HTTPS connection (1): api.github.com:443
+2025-05-14 16:18:05,142 - DEBUG - https://api.github.com:443 "GET /repos/PobloMert/TezgahTakip/releases/latest HTTP/1.1" 200 771
+2025-05-14 22:16:09,251 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-14 22:20:45,608 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-15 22:50:03,885 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-15 22:50:54,873 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-15 23:01:12,041 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-15 23:05:26,537 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-15 23:24:47,790 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-15 23:56:38,353 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-15 23:57:26,620 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-15 23:58:29,975 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-15 23:58:32,519 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-16 00:01:37,376 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-16 00:01:47,241 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-16 00:02:35,524 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-16 00:04:44,413 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-16 00:07:37,561 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-16 00:08:41,473 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-16 00:08:43,954 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-16 00:09:33,002 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-16 00:10:16,400 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-16 00:14:01,412 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-16 00:17:05,261 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-16 00:23:44,480 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-17 21:47:16,439 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-17 21:59:52,254 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-17 22:00:56,500 - INFO - Veritabaný tablolarý oluþturuldu.
+2025-05-17 22:02:14,998 - INFO - Veritabaný tablolarý oluþturuldu.

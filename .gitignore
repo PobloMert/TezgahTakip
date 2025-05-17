@@ -1,46 +1,27 @@
-# Genel Python
+# Python
 __pycache__/
 *.py[cod]
-*$py.class
 *.so
 .Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
 
-# Veritabanı dosyaları
+# Veritabanı
 *.db
-*.sqlite
-*.sqlite3
+*.db-shm
+*.db-wal
 
-# PyInstaller
-*.manifest
-*.spec
-
-# Loglar
-*.log
-
-# Ortam dosyaları
-.env
-.venv
-env/
-venv/
-ENV/
-
-# IDE dosyaları
-.idea/
+# IDE
 .vscode/
-*.swp
-.DS_Store
+.idea/
+
+# Ortam
+venv/
+env/
+
+# Test
+.coverage
+htmlcov/
+
+# Paket
+*.egg-info/
+build/
+dist/

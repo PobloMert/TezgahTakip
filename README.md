@@ -55,3 +55,30 @@ python3 main.py
 - SQLAlchemy ORM kullanılmıştır
 - Plotly ile interaktif grafikler
 - GitHub üzerinden otomatik güncelleme
+
+# Tezgah Takip Sistemi
+
+![Python](https://img.shields.io/badge/python-3.11%2B-blue)
+![PyQt5](https://img.shields.io/badge/PyQt5-5.15-green)
+
+Makine bakım takip sistemi için geliştirilmiş Qt/Python uygulaması
+
+## Özellikler
+- Makine bakım kaydı
+- Bakım durum takibi
+- Raporlama sistemi
+- Modern kullanıcı arayüzü
+
+## Kurulum
+```bash
+git clone https://github.com/PobloMert/TezgahTakip.git
+cd TezgahTakip
+pip install -r requirements.txt
+python main.py
+```
+
+## Ekran Görüntüleri
+![Dashboard](screenshots/dashboard.png)
+
+## Katkı
+Pull request'ler kabul edilir.
