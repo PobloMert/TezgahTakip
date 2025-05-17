@@ -33,7 +33,7 @@ sys.path.insert(0, project_root)
 sys.path.insert(0, os.path.join(project_root, 'models'))  # models klasörünü ekle
 
 # Uygulama sürüm bilgileri
-APP_VERSION = "1.0.1"
+APP_VERSION = "1.0.2"
 GITHUB_USERNAME = "PobloMert"
 GITHUB_REPO = "TezgahTakip"  # Repo adı orijinal haline getirildi
 

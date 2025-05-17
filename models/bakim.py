@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, Float, ForeignKey, Index
+from sqlalchemy import Column, Integer, String, DateTime, Float, ForeignKey, Index, Boolean
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import func
@@ -13,6 +13,10 @@ class Tezgah(Base):
     __tablename__ = 'tezgah'
     id = Column(Integer, primary_key=True)
     numarasi = Column(String, unique=True, nullable=False, index=True)
+    aciklama = Column(String, nullable=True)
+    durum = Column(Boolean, default=True)
+    created_at = Column(DateTime, default=datetime.now)
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
     bakimlar = relationship("Bakim", back_populates="tezgah")
     pil_degisimleri = relationship("PilDegisim", back_populates="tezgah")
 

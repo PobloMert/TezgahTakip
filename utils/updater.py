@@ -9,6 +9,7 @@ import time
 from pathlib import Path
 from PyQt5.QtWidgets import QMessageBox
 from packaging import version
+from ui.update_animation import UpdateAnimation
 
 class AutoUpdater:
     def __init__(self, github_username, repo_name, current_version):
@@ -17,7 +18,8 @@ class AutoUpdater:
         self.current_version = current_version
         self.settings_path = Path(__file__).parent.parent / 'settings.json'
         self.last_check = 0
-
+        self.animation = UpdateAnimation()
+        
     def should_check_for_updates(self):
         """Son kontrol zamanını kontrol eder"""
         try:
@@ -44,37 +46,43 @@ class AutoUpdater:
             logging.error(f"Ayarlar güncellenirken hata: {e}")
 
     def check_for_updates(self, force=False):
-        """Güncelleme kontrolü yapar"""
+        """
+        GitHub'dan en son sürümü kontrol eder
+        :param force: Güncelleme kontrolünü zorla yap (varsayılan: False)
+        :return: (update_available: bool, latest_version: str)
+        """
         try:
             if not force and (time.time() - self.last_check) < 3600:  # 1 saatten azsa atla
                 return {'update_available': False}
             
             self.last_check = time.time()
-            response = requests.get(
-                f'https://api.github.com/repos/{self.github_username}/{self.repo_name}/releases/latest',
-                headers={'Accept': 'application/json'}
-            )
+            headers = {'Accept': 'application/vnd.github.v3+json'}
+            url = f'https://api.github.com/repos/{self.github_username}/{self.repo_name}/releases/latest'
+            
+            # API isteği
+            response = requests.get(url, headers=headers, timeout=10)
             response.raise_for_status()
             
-            # JSON verisini güvenli bir şekilde parse et
-            try:
-                data = response.json()
-                latest_version = data['tag_name'].lstrip('v')
-                
-                if version.parse(latest_version) > version.parse(self.current_version):
-                    return {
-                        'update_available': True,
-                        'latest_version': latest_version,
-                        'release_notes': data['body']
-                    }
+            # Version kontrol
+            latest_version = response.json().get('tag_name', '').lstrip('v')
+            if not latest_version:
                 return {'update_available': False}
-            except (ValueError, KeyError) as e:
-                logging.error(f"JSON parse hatası: {e}")
-                return {'update_available': False, 'error': str(e)}
                 
+            # Versiyon karşılaştırma
+            if version.parse(latest_version) > version.parse(self.current_version):
+                return {
+                    'update_available': True,
+                    'latest_version': latest_version,
+                    'release_notes': response.json().get('body', '')
+                }
+            return {'update_available': False}
+            
+        except requests.exceptions.RequestException as e:
+            logging.warning(f"Güncelleme kontrolü başarısız: {str(e)}")
+            return {'update_available': False}
         except Exception as e:
-            logging.error(f"Güncelleme kontrol hatası: {e}")
-            return {'update_available': False, 'error': str(e)}
+            logging.error(f"Beklenmeyen güncelleme hatası: {str(e)}")
+            return {'update_available': False}
 
     def _find_download_url(self, release_info):
         for asset in release_info["assets"]:
@@ -91,26 +99,48 @@ class AutoUpdater:
         )
         
         if reply == QMessageBox.Yes:
-            self._download_and_install_update(download_url)
+            self.download_update({'assets': [{'browser_download_url': download_url}]})
 
-    def _download_and_install_update(self, download_url):
+    def download_update(self, release_info):
         try:
-            current_executable = sys.executable
-            app_name = os.path.basename(current_executable)
-            temp_dir = tempfile.gettempdir()
-            new_exe_path = os.path.join(temp_dir, f"TezgahTakip_update.exe")
-
-            # İndirme işlemi
-            response = requests.get(download_url, stream=True, timeout=60)
+            self.animation.start_animation()
             
-            if response.status_code == 200:
-                with open(new_exe_path, 'wb') as f:
-                    for chunk in response.iter_content(chunk_size=8192):
-                        f.write(chunk)
+            # İndirme işlemleri
+            download_url = self._find_download_url(release_info)
+            
+            # İndirme tamamlandığında
+            self.animation.stop_animation(
+                "Güncelleme başarıyla indirildi!\nUygulama kapanıp yeniden başlatılacak",
+                is_success=True
+            )
+            
+            # Kurulum işlemleri...
+            self._install_update(download_url)
+            
+        except Exception as e:
+            self.animation.stop_animation(
+                f"Güncelleme hatası:\n{str(e)}",
+                is_success=False
+            )
+            logging.error(f"Güncelleme hatası: {e}")
 
-                # Güncelleme batch dosyası
-                batch_path = os.path.join(temp_dir, "update_tezgahtakip.bat")
-                batch_content = f"""@echo off
+    def _install_update(self, download_url):
+        current_executable = sys.executable
+        app_name = os.path.basename(current_executable)
+        temp_dir = tempfile.gettempdir()
+        new_exe_path = os.path.join(temp_dir, f"TezgahTakip_update.exe")
+
+        # İndirme işlemi
+        response = requests.get(download_url, stream=True, timeout=60)
+        
+        if response.status_code == 200:
+            with open(new_exe_path, 'wb') as f:
+                for chunk in response.iter_content(chunk_size=8192):
+                    f.write(chunk)
+
+            # Güncelleme batch dosyası
+            batch_path = os.path.join(temp_dir, "update_tezgahtakip.bat")
+            batch_content = f"""@echo off
 echo Tezgah Takip Programı güncelleniyor...
 timeout /t 2 /nobreak > nul
 
@@ -135,11 +165,8 @@ start "" "{current_executable}"
 :: Bu batch dosyasını sil
 del "%~f0" > nul
 """
-                with open(batch_path, 'w') as f:
-                    f.write(batch_content)
+            with open(batch_path, 'w') as f:
+                f.write(batch_content)
 
-                subprocess.Popen(batch_path, shell=True, creationflags=subprocess.CREATE_NO_WINDOW)
-                sys.exit(0)
-        except Exception as e:
-            logging.error(f"Güncelleme kurulumu sırasında hata: {e}")
-            QMessageBox.warning(None, "Güncelleme Hatası", f"Güncelleme sırasında bir hata oluştu: {e}")
+            subprocess.Popen(batch_path, shell=True, creationflags=subprocess.CREATE_NO_WINDOW)
+            sys.exit(0)
