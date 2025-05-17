@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QTableWidget,
 from PyQt5.QtWidgets import QInputDialog
 from PyQt5.QtCore import Qt, QDate
 from database.connection import db_manager
-from models.maintenance import Bakim, Tezgah
+from models.bakim import Bakim, Tezgah  # Doğru import yolu
 from sqlalchemy.orm import Session
 from datetime import datetime
 from ui.maintenance_detail_dialog import MaintenanceDetailDialog
@@ -30,7 +30,7 @@ class MaintenanceTab(QWidget):
         layout.addLayout(tezgah_layout)
         
         # Bakım kayıt formu
-        form_layout = QHBoxLayout()
+        form_layout = QFormLayout()
         
         # Tezgah numarası ComboBox
         self.tezgah_numarasi = QComboBox()
@@ -48,21 +48,15 @@ class MaintenanceTab(QWidget):
         self.performed_by = QLineEdit()
         self.performed_by.setPlaceholderText("Bakımı Yapan")
         
-
+        form_layout.addRow("Tezgah No:", self.tezgah_numarasi)
+        form_layout.addRow("Tarih:", self.maintenance_date)
+        form_layout.addRow("Açıklama:", self.description)
+        form_layout.addRow("Yapan:", self.performed_by)
         
         add_button = QPushButton("Kaydet")
         add_button.clicked.connect(self.save_maintenance)
 
-        form_layout.addWidget(QLabel("Tezgah No:"))
-        form_layout.addWidget(self.tezgah_numarasi)
-        form_layout.addWidget(QLabel("Tarih:"))
-        form_layout.addWidget(self.maintenance_date)
-        form_layout.addWidget(QLabel("Açıklama:"))
-        form_layout.addWidget(self.description)
-        form_layout.addWidget(QLabel("Yapan:"))
-        form_layout.addWidget(self.performed_by)
-
-        form_layout.addWidget(add_button)
+        form_layout.addRow("", add_button)
 
         layout.addLayout(form_layout)
 
@@ -135,7 +129,6 @@ class MaintenanceTab(QWidget):
                 tarih=datetime.now().strftime('%d-%m-%Y'),
                 bakim_yapan=self.performed_by.text(),
                 aciklama=self.description.text(),
-
             )
             session.add(record)
             session.commit()

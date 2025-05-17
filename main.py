@@ -3,11 +3,11 @@ import os
 import threading
 import traceback
 import logging
-from PyQt5.QtWidgets import QApplication, QMenuBar, QAction, QDockWidget, QMessageBox
+from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QApplication, QMenuBar, QAction, QDockWidget, QMessageBox
 from src.app import TezgahTakipApp
-from database.connection import db_manager
+from database.connection import DatabaseManager
 from utils.updater import AutoUpdater
 from utils.widget_style import WidgetStyleManager
 from ui.theme_menu import ThemeMenu
@@ -23,61 +23,42 @@ from utils.fuzzy_search import fuzzy_search
 from utils.quick_reports import QuickReportGenerator
 from ui.system_monitor import SystemMonitor
 from ui.error_dialog import ErrorDialog
-from utils.logger import setup_logging
+from utils.logger import AppLogger
+from ui.theme_loader import load_theme
+from utils.performance_monitor import PerformanceMonitor
 
 # Proje dizinini PYTHONPATH'e ekle
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__)))
 sys.path.insert(0, project_root)
+sys.path.insert(0, os.path.join(project_root, 'models'))  # models klasörünü ekle
 
 # Uygulama sürüm bilgileri
-APP_VERSION = "1.0.0"
+APP_VERSION = "1.0.1"
 GITHUB_USERNAME = "PobloMert"
-GITHUB_REPO = "TezgahTakip"
+GITHUB_REPO = "TezgahTakip"  # Repo adı orijinal haline getirildi
 
-def check_for_updates():
-    try:
-        updater = AutoUpdater(GITHUB_USERNAME, GITHUB_REPO, APP_VERSION)
-        updater.check_for_updates()
-    except Exception as e:
-        logging.error(f"Güncelleme hatası: {e}")
-        raise
+# Uygulama başlatmadan önce DPI ayarları
+QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
+QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
 
 def main():
     try:
-        setup_logging()
-        logging.info("Uygulama başlatılıyor...")
+        # Logger'ı başlat
+        logger = AppLogger().get_logger()
+        logger.info("Uygulama başlatılıyor...")
         
-        # Veritabanı ve temel sistemler
-        db_manager.create_tables()
-        data_cache = DataCache(db_manager)
-        data_reloader = SmartDataReloader(cleanup_interval=12)
-        
-        # Yedekleme
-        backup_manager = BackupManager()
-        try:
-            if backup_manager.create_backup():
-                logging.info("Otomatik yedek oluşturuldu")
-            else:
-                logging.warning("Yedekleme başarısız oldu")
-        except Exception as e:
-            logging.error(f"Yedekleme hatası: {str(e)}")
-        
-        # Uygulama başlat
-        app = QApplication(sys.argv)
-        apply_global_styles(app)
-        tezgah_app = TezgahTakipApp(db_manager)
-        
-        # Sistem izleme
-        system_monitor = SystemMonitor()
-        tezgah_app.statusBar().addPermanentWidget(system_monitor)
+        # Veritabanı yöneticisini oluştur
+        db_manager = DatabaseManager()
         
         # Uygulamayı başlat
-        tezgah_app.show()
-        threading.Thread(target=check_for_updates, daemon=True).start()
-        sys.exit(app.exec_())
+        app = QApplication(sys.argv)
+        window = TezgahTakipApp()  # Parametresiz başlat
+        window.show()
+        sys.exit(app.exec())
         
     except Exception as e:
-        logging.critical(f"Kritik başlatma hatası: {str(e)}", exc_info=True)
+        logger = AppLogger().get_logger()
+        logger.critical(f"Kritik başlatma hatası: {str(e)}", exc_info=True)
         ErrorDialog(
             "Kritik Hata",
             "Uygulama başlatılırken beklenmeyen bir hata oluştu.\n\n"

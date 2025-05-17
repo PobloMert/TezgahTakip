@@ -1,17 +1,18 @@
 @echo off
-echo Tezgah Takip Uygulamasi EXE formatina donusturuluyor...
+setlocal
 
-:: PyInstaller komutu
-pyinstaller --noconfirm ^
-    --onefile ^
-    --windowed ^
-    --clean ^
-    --name=TezgahTakip ^
-    --hidden-import=PyQt5.QtChart ^
-    --hidden-import=PyQt5.sip ^
-    --hidden-import=sqlalchemy.sql.default_comparator ^
+REM Gerekli paketlerin kurulumu
+pip install pyinstaller
+
+REM EXE oluşturma
+pyinstaller --onefile --windowed ^
+    --name "TezgahTakip" ^
+    --icon "icon.ico" ^
+    --add-data "data;data" ^
+    --add-data "ui;ui" ^
+    --add-data "utils;utils" ^
+    --hidden-import "PyQt5.QtWidgets" ^
+    --hidden-import "sqlalchemy" ^
     main.py
 
-echo.
-echo Islemi tamamlamak icin bir tusa basin...
-pause > nul
+pause

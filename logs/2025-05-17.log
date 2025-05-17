@@ -1,0 +1,795 @@
+2025-05-17 23:10:56 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:10:56 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:10:56 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:10:56 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: (sqlite3.OperationalError) unable to open database file
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+Traceback (most recent call last):
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3361, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 388, in __init__
+    self.__connect()
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\compat.py", line 211, in raise_
+    raise exception
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\create.py", line 578, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: unable to open database file
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 87, in main
+    db_manager = DatabaseManager(db_path)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\database\connection.py", line 36, in __init__
+    self.execute("PRAGMA journal_mode = WAL")
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\database\connection.py", line 256, in execute
+    cursor = self.session.bind.execute(query)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in execute
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\deprecations.py", line 468, in warned
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3256, in execute
+    connection = self.connect(close_with_result=True)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3315, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 96, in __init__
+    else engine.raw_connection()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3394, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3364, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 2198, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\compat.py", line 211, in raise_
+    raise exception
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3361, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 388, in __init__
+    self.__connect()
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\compat.py", line 211, in raise_
+    raise exception
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\create.py", line 578, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) unable to open database file
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+2025-05-17 23:10:56 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: (sqlite3.OperationalError) unable to open database file
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+Traceback (most recent call last):
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3361, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 388, in __init__
+    self.__connect()
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\compat.py", line 211, in raise_
+    raise exception
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\create.py", line 578, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: unable to open database file
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 87, in main
+    db_manager = DatabaseManager(db_path)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\database\connection.py", line 36, in __init__
+    self.execute("PRAGMA journal_mode = WAL")
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\database\connection.py", line 256, in execute
+    cursor = self.session.bind.execute(query)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in execute
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\deprecations.py", line 468, in warned
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3256, in execute
+    connection = self.connect(close_with_result=True)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3315, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 96, in __init__
+    else engine.raw_connection()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3394, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3364, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 2198, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\compat.py", line 211, in raise_
+    raise exception
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3361, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 388, in __init__
+    self.__connect()
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\compat.py", line 211, in raise_
+    raise exception
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\create.py", line 578, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) unable to open database file
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+2025-05-17 23:11:01 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:11:01 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:11:01 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:11:01 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: (sqlite3.OperationalError) unable to open database file
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+Traceback (most recent call last):
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3361, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 388, in __init__
+    self.__connect()
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\compat.py", line 211, in raise_
+    raise exception
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\create.py", line 578, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: unable to open database file
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 87, in main
+    db_manager = DatabaseManager(db_path)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\database\connection.py", line 36, in __init__
+    self.execute("PRAGMA journal_mode = WAL")
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\database\connection.py", line 256, in execute
+    cursor = self.session.bind.execute(query)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in execute
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\deprecations.py", line 468, in warned
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3256, in execute
+    connection = self.connect(close_with_result=True)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3315, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 96, in __init__
+    else engine.raw_connection()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3394, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3364, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 2198, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\compat.py", line 211, in raise_
+    raise exception
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3361, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 388, in __init__
+    self.__connect()
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\compat.py", line 211, in raise_
+    raise exception
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\create.py", line 578, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) unable to open database file
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+2025-05-17 23:11:01 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: (sqlite3.OperationalError) unable to open database file
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+Traceback (most recent call last):
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3361, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 388, in __init__
+    self.__connect()
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\compat.py", line 211, in raise_
+    raise exception
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\create.py", line 578, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: unable to open database file
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 87, in main
+    db_manager = DatabaseManager(db_path)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\database\connection.py", line 36, in __init__
+    self.execute("PRAGMA journal_mode = WAL")
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\database\connection.py", line 256, in execute
+    cursor = self.session.bind.execute(query)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in execute
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\deprecations.py", line 468, in warned
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3256, in execute
+    connection = self.connect(close_with_result=True)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3315, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 96, in __init__
+    else engine.raw_connection()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3394, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3364, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 2198, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\compat.py", line 211, in raise_
+    raise exception
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 3361, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 388, in __init__
+    self.__connect()
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\compat.py", line 211, in raise_
+    raise exception
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\create.py", line 578, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmet\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) unable to open database file
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+2025-05-17 23:11:45 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:11:45 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:11:45 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:11:45 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: 'DatabaseManager' object has no attribute 'engine'
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 87, in main
+    db_manager = DatabaseManager(db_path)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\database\connection.py", line 31, in __init__
+    self.restore_from_backup(db_path)
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\database\connection.py", line 63, in restore_from_backup
+    Base.metadata.create_all(self.engine)
+                             ^^^^^^^^^^^
+AttributeError: 'DatabaseManager' object has no attribute 'engine'
+2025-05-17 23:11:45 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: 'DatabaseManager' object has no attribute 'engine'
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 87, in main
+    db_manager = DatabaseManager(db_path)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\database\connection.py", line 31, in __init__
+    self.restore_from_backup(db_path)
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\database\connection.py", line 63, in restore_from_backup
+    Base.metadata.create_all(self.engine)
+                             ^^^^^^^^^^^
+AttributeError: 'DatabaseManager' object has no attribute 'engine'
+2025-05-17 23:12:32 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:12:32 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:12:32 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:12:33 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: PerformanceMonitor.__init__() takes 1 positional argument but 2 were given
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 121, in main
+    perf_monitor = PerformanceMonitor(window)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: PerformanceMonitor.__init__() takes 1 positional argument but 2 were given
+2025-05-17 23:12:33 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: PerformanceMonitor.__init__() takes 1 positional argument but 2 were given
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 121, in main
+    perf_monitor = PerformanceMonitor(window)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: PerformanceMonitor.__init__() takes 1 positional argument but 2 were given
+2025-05-17 23:13:15 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:13:15 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: name 'AppLogger' is not defined
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 62, in main
+    monitor = PerformanceMonitor()
+              ^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\utils\performance_monitor.py", line 10, in __init__
+    self.logger = AppLogger().get_logger()
+                  ^^^^^^^^^
+NameError: name 'AppLogger' is not defined
+2025-05-17 23:13:15 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: name 'AppLogger' is not defined
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 62, in main
+    monitor = PerformanceMonitor()
+              ^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\utils\performance_monitor.py", line 10, in __init__
+    self.logger = AppLogger().get_logger()
+                  ^^^^^^^^^
+NameError: name 'AppLogger' is not defined
+2025-05-17 23:13:35 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:13:35 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:13:35 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:13:35 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:13:35 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:13:36 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:13:36 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:13:36 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:13:36 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:13:36 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:13:36 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:15:20 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:15:20 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:15:20 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:15:20 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:15:20 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:15:21 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:15:21 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:15:21 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:15:21 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:15:21 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:15:21 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:16:23 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:16:23 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:16:23 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:16:23 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:16:23 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:16:24 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:16:24 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:16:24 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:16:24 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:16:24 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:16:24 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:17:01 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:17:01 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:17:01 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:17:01 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:17:01 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:17:02 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:17:02 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:17:02 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:17:02 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:17:02 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:17:02 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:17:37 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:17:37 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:17:37 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:17:37 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:17:37 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:17:38 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:17:38 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:17:38 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:17:38 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:17:38 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:17:38 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:18:56 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:18:56 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:18:56 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:18:56 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:18:56 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:18:57 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:18:57 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:18:57 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:18:57 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:18:57 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:18:57 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:21:10 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:21:10 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:21:10 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:21:10 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:21:10 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:21:11 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: 'PyQt5.QtCore.pyqtSignal' object has no attribute 'connect'
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 117, in main
+    db_manager.data_changed.connect(window.refresh_data)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PyQt5.QtCore.pyqtSignal' object has no attribute 'connect'
+2025-05-17 23:21:11 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: 'PyQt5.QtCore.pyqtSignal' object has no attribute 'connect'
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 117, in main
+    db_manager.data_changed.connect(window.refresh_data)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PyQt5.QtCore.pyqtSignal' object has no attribute 'connect'
+2025-05-17 23:21:11 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: 'PyQt5.QtCore.pyqtSignal' object has no attribute 'connect'
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 117, in main
+    db_manager.data_changed.connect(window.refresh_data)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PyQt5.QtCore.pyqtSignal' object has no attribute 'connect'
+2025-05-17 23:21:53 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:21:53 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:21:53 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:21:53 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:21:53 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:23:25 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:23:25 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:23:25 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:23:25 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:23:25 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:23:30 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: 'PyQt5.QtCore.pyqtSignal' object has no attribute 'connect'
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 125, in main
+    db_manager.data_changed.connect(window.refresh_data)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PyQt5.QtCore.pyqtSignal' object has no attribute 'connect'
+2025-05-17 23:23:30 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: 'PyQt5.QtCore.pyqtSignal' object has no attribute 'connect'
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 125, in main
+    db_manager.data_changed.connect(window.refresh_data)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PyQt5.QtCore.pyqtSignal' object has no attribute 'connect'
+2025-05-17 23:23:30 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: 'PyQt5.QtCore.pyqtSignal' object has no attribute 'connect'
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 125, in main
+    db_manager.data_changed.connect(window.refresh_data)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PyQt5.QtCore.pyqtSignal' object has no attribute 'connect'
+2025-05-17 23:24:05 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:24:05 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:24:05 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:24:05 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:24:05 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:25:17 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:25:17 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:25:17 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:25:17 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:25:17 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:25:19 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:25:19 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:25:19 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:25:19 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:25:19 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:25:19 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:27:11 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:27:11 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:27:11 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:27:11 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:27:11 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:27:13 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:27:13 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:27:13 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:27:13 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:27:13 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:27:13 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:27:13 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: mapToGlobal(self, QPoint): argument 1 has unexpected type 'tuple'
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 141, in main
+    Animator.slide_in(window.statusBar(), direction='bottom')
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\ui\animations.py", line 27, in slide_in
+    animation.setStartValue(widget.parent().mapFromGlobal(widget.mapToGlobal(start_pos[direction])))
+                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: mapToGlobal(self, QPoint): argument 1 has unexpected type 'tuple'
+2025-05-17 23:27:13 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: mapToGlobal(self, QPoint): argument 1 has unexpected type 'tuple'
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 141, in main
+    Animator.slide_in(window.statusBar(), direction='bottom')
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\ui\animations.py", line 27, in slide_in
+    animation.setStartValue(widget.parent().mapFromGlobal(widget.mapToGlobal(start_pos[direction])))
+                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: mapToGlobal(self, QPoint): argument 1 has unexpected type 'tuple'
+2025-05-17 23:27:13 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: mapToGlobal(self, QPoint): argument 1 has unexpected type 'tuple'
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 141, in main
+    Animator.slide_in(window.statusBar(), direction='bottom')
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\ui\animations.py", line 27, in slide_in
+    animation.setStartValue(widget.parent().mapFromGlobal(widget.mapToGlobal(start_pos[direction])))
+                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: mapToGlobal(self, QPoint): argument 1 has unexpected type 'tuple'
+2025-05-17 23:27:13 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: mapToGlobal(self, QPoint): argument 1 has unexpected type 'tuple'
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 141, in main
+    Animator.slide_in(window.statusBar(), direction='bottom')
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\ui\animations.py", line 27, in slide_in
+    animation.setStartValue(widget.parent().mapFromGlobal(widget.mapToGlobal(start_pos[direction])))
+                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: mapToGlobal(self, QPoint): argument 1 has unexpected type 'tuple'
+2025-05-17 23:28:58 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:28:58 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:28:58 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:28:58 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:28:58 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:29:00 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:29:00 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:29:00 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:29:00 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:29:00 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:29:00 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:30:40 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:30:40 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:30:40 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:30:40 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:30:40 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:30:41 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:30:41 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:30:41 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:30:41 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:30:41 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:30:41 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:31:24 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:31:24 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:31:24 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:31:24 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:31:24 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:31:25 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:31:25 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:31:25 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:31:25 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:31:25 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:31:25 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:32:12 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:32:12 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:32:12 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:32:12 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:32:12 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:32:14 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:32:14 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:32:14 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:32:14 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:32:14 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:32:14 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:32:47 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:32:47 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:32:47 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:32:47 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:32:47 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:32:49 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:32:49 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:32:49 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:32:49 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:32:49 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:32:49 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:33:20 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:33:20 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:33:20 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:33:20 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:33:20 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:33:21 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:33:21 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:33:21 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:33:21 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:33:21 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:33:21 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:33:53 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:33:53 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:33:53 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:33:53 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:33:53 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:33:55 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:33:55 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:33:55 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:33:55 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:33:55 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:33:55 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:45:33 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:45:33 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:45:33 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:45:33 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:45:33 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:45:35 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:45:35 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:45:35 - TezgahTakip - INFO - Performans izleme baþlatýldý
+2025-05-17 23:45:35 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:45:35 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:45:35 - TezgahTakip - INFO - Performans izleyici baþlatýldý
+2025-05-17 23:47:04 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:47:04 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:47:04 - TezgahTakip - DEBUG - Veritabaný yolu: c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\data\tezgah_takip.db
+2025-05-17 23:47:04 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:47:04 - TezgahTakip - DEBUG - Global stiller yüklendi
+2025-05-17 23:47:05 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: TezgahTakipApp.__init__() takes 1 positional argument but 2 were given
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 123, in main
+    window = TezgahTakipApp(db_manager)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: TezgahTakipApp.__init__() takes 1 positional argument but 2 were given
+2025-05-17 23:47:05 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: TezgahTakipApp.__init__() takes 1 positional argument but 2 were given
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 123, in main
+    window = TezgahTakipApp(db_manager)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: TezgahTakipApp.__init__() takes 1 positional argument but 2 were given
+2025-05-17 23:47:05 - TezgahTakip - CRITICAL - Kritik baþlatma hatasý: TezgahTakipApp.__init__() takes 1 positional argument but 2 were given
+Traceback (most recent call last):
+  File "c:\Users\ahmet\OneDrive\Masaüstü\TezgahTakipQt\main.py", line 123, in main
+    window = TezgahTakipApp(db_manager)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: TezgahTakipApp.__init__() takes 1 positional argument but 2 were given
+2025-05-17 23:47:37 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:48:20 - TezgahTakip - INFO - Uygulama baþlatýlýyor...
+2025-05-17 23:49:19 - TezgahTakip - INFO - Uygulama baþlatýlýyor...

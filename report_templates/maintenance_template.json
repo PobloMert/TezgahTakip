@@ -1,0 +1,13 @@
+{
+  "template_name": "Aylık Bakım Raporu",
+  "columns": ["Tezgah No", "Planlı Bakım", "Acil Bakım", "Toplam"],
+  "styles": {
+    "header_color": "#4CAF50",
+    "row_color": "#E8F5E9",
+    "alternate_row_color": "#FFFFFF",
+    "font": "Helvetica",
+    "title_size": 14,
+    "logo_path": "assets/logo.png"
+  },
+  "footer": "© 2025 Tezgah Takip Sistemi - Tüm hakları saklıdır"
+}

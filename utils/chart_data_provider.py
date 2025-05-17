@@ -8,7 +8,7 @@ from typing import Dict, List, Tuple, Any, Optional
 from sqlalchemy import func, desc
 from sqlalchemy.orm import Session
 
-from models.maintenance import Bakim, PilDegisim, Tezgah
+from models.bakim import Bakim, PilDegisim, Tezgah  # Doğru import yolu
 
 class ChartDataProvider:
     """Grafikler için veri sağlayan sınıf."""

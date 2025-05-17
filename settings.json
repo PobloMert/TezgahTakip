@@ -1,1 +1,5 @@
-{"theme": "light"}
+{
+  "theme": "light",
+  "update_check_interval": 86400,  // Saniye cinsinden (24 saat)
+  "last_update_check": 0  // Unix timestamp
+}

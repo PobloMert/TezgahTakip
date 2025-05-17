@@ -16,7 +16,7 @@ from PyQt5.QtChart import (QChart, QChartView, QBarSeries, QBarSet, QValueAxis, 
 
 # Veritabanı importları
 from database.connection import db_manager
-from models.maintenance import Bakim, PilDegisim, Tezgah
+from models.bakim import Bakim, PilDegisim, Tezgah  # Doğru import yolu
 from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import func, desc
 
@@ -247,56 +247,31 @@ class DashboardTab(QWidget):
         """
         Dashboard verilerini güncelle
         """
-        print("Dashboard yenileniyor...")
-        
-        # filter_active değişkenini kontrol et ve yoksa oluştur
-        if not hasattr(self, 'filter_active'):
-            self.filter_active = False
-        
-        # Veri durumunu yazdır (eğer filtre aktifse)
         try:
-            # Toplam veri sayılarını al
-            with self.db_manager.session_scope() as count_session:
-                bakim_count = count_session.query(Bakim).count()
-                pil_count = count_session.query(PilDegisim).count()
-                print(f"Veri durumu: Tüm Veriler - Bakım: {bakim_count}, Pil Değişim: {pil_count}")
-        except Exception as e:
-            print(f"Veri sayım hatası: {e}")
-        
-        try:
-            # Veritabanı bağlantısı her zaman taze başlat - session sorunlarını önler
-            # Önemli: Mevcut session'u kapat
-            if hasattr(self, 'session') and self.session is not None:
-                try:
-                    self.session.close()
-                except Exception:
-                    pass
-                    
-            # Yeni bir session aç
-            self.session = self.db_manager.session_factory()
+            self.session = self.db_manager.get_session()
             
-            if self.session is None:
-                raise ValueError("Veritabanı bağlantısı kurulamadı")
+            # Temel istatistikler
+            stats = {
+                'toplam_tezgah': self.session.query(Tezgah).count(),
+                'toplam_bakim': self.session.query(Bakim).count(),
+                'toplam_pil_degisim': self.session.query(PilDegisim).count()
+            }
+            
+            # Combobox'ı güncelle
+            self.tezgah_combo.clear()
+            tezgahlar = self.session.query(Tezgah).order_by(Tezgah.numarasi).all()
+            for tezgah in tezgahlar:
+                self.tezgah_combo.addItem(tezgah.numarasi, tezgah.id)
                 
-            # Tezgah combobox'ı doldur
-            self._populate_tezgah_combo()
+            # Dashboard'ı güncelle
+            self.update_stats(stats)
             
-            # İstatistikleri al
-            self.stats = self.data_provider.get_basic_stats(self.session)
-            
-            # Stat kartlarını güncelle
-            print("Dashboard istatistikleri güncelleniyor...")
-            self._update_stat_cards()
-            
-            # Grafikleri oluştur/güncelle
-            self._update_charts()
-            
-            print("Dashboard başarıyla güncellendi.")
-        
         except Exception as e:
             print(f"Dashboard güncelleme hatası: {e}")
-            print(traceback.format_exc())
-            
+        finally:
+            if hasattr(self, 'session') and self.session:
+                self.session.close()
+    
     def _populate_tezgah_combo(self):
         """
         Tezgah combobox'ını veritabanından gelen verilerle doldur

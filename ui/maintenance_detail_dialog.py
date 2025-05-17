@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QFormLayout,
                              QInputDialog)
 from PyQt5.QtCore import Qt
 from database.connection import db_manager
-from models.maintenance import Tezgah
+from models.bakim import Tezgah
 
 class MaintenanceDetailDialog(QDialog):
     """Bakım detaylarını gösteren ve düzenleme için şifre soran dialog"""

@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QTableWidget,
                              QInputDialog)
 from PyQt5.QtCore import Qt, QDate
 from database.connection import db_manager
-from models.maintenance import PilDegisim, Tezgah
+from models.bakim import PilDegisim, Tezgah
 from sqlalchemy.orm import Session
 from datetime import datetime
 from ui.battery_detail_dialog import BatteryDetailDialog
@@ -29,7 +29,7 @@ class BatteryTab(QWidget):
         layout.addLayout(tezgah_layout)
 
         # Pil değişim formu
-        form_layout = QHBoxLayout()
+        form_layout = QFormLayout()
         
         # Tezgah numarası ComboBox
         self.tezgah_numarasi = QComboBox()
@@ -37,8 +37,13 @@ class BatteryTab(QWidget):
         self.tezgah_numarasi.setPlaceholderText("Tezgah Numarası")
         self.load_tezgah_numaralari() # Mevcut tezgah numaralarını yükle
         
-        self.eksen = QLineEdit()
-        self.eksen.setPlaceholderText("Eksen")
+        # Eksen Seçimi
+        self.eksen_combo = QComboBox()
+        for value, text in PilDegisim.EKSENLER:
+            self.eksen_combo.addItem(text, value)
+        
+        form_layout.addRow("Tezgah No:", self.tezgah_numarasi)
+        form_layout.addRow("Eksen:", self.eksen_combo)
         
         self.pil_modeli = QLineEdit()
         self.pil_modeli.setPlaceholderText("Pil Modeli")
@@ -53,17 +58,10 @@ class BatteryTab(QWidget):
         add_button = QPushButton("Kaydet")
         add_button.clicked.connect(self.save_battery_record)
 
-        form_layout.addWidget(QLabel("Tezgah No:"))
-        form_layout.addWidget(self.tezgah_numarasi)
-        form_layout.addWidget(QLabel("Eksen:"))
-        form_layout.addWidget(self.eksen)
-        form_layout.addWidget(QLabel("Pil Modeli:"))
-        form_layout.addWidget(self.pil_modeli)
-        form_layout.addWidget(QLabel("Değişim Tarihi:"))
-        form_layout.addWidget(self.replacement_date)
-        form_layout.addWidget(QLabel("Yapan:"))
-        form_layout.addWidget(self.bakim_yapan)
-        form_layout.addWidget(add_button)
+        form_layout.addRow("Pil Modeli:", self.pil_modeli)
+        form_layout.addRow("Değişim Tarihi:", self.replacement_date)
+        form_layout.addRow("Yapan:", self.bakim_yapan)
+        form_layout.addRow("", add_button)
 
         layout.addLayout(form_layout)
 
@@ -133,7 +131,7 @@ class BatteryTab(QWidget):
             # Pil değişim kaydı oluşturma
             record = PilDegisim(
                 tezgah_id=tezgah.id,
-                eksen=self.eksen.text(),
+                eksen=self.eksen_combo.currentData(),
                 pil_modeli=self.pil_modeli.text(),
                 tarih=datetime.now(),
                 bakim_yapan=self.bakim_yapan.text()

@@ -4,30 +4,77 @@ import logging
 import requests
 import tempfile
 import subprocess
+import json
+import time
+from pathlib import Path
 from PyQt5.QtWidgets import QMessageBox
+from packaging import version
 
 class AutoUpdater:
     def __init__(self, github_username, repo_name, current_version):
         self.github_username = github_username
         self.repo_name = repo_name
         self.current_version = current_version
+        self.settings_path = Path(__file__).parent.parent / 'settings.json'
+        self.last_check = 0
 
-    def check_for_updates(self):
+    def should_check_for_updates(self):
+        """Son kontrol zamanını kontrol eder"""
         try:
-            api_url = f"https://api.github.com/repos/{self.github_username}/{self.repo_name}/releases/latest"
-            response = requests.get(api_url, timeout=10)
+            with open(self.settings_path, 'r') as f:
+                settings = json.load(f)
             
-            if response.status_code == 200:
-                release_info = response.json()
-                latest_version = release_info["tag_name"]
-                
-                if latest_version > self.current_version:
-                    download_url = self._find_download_url(release_info)
-                    
-                    if download_url:
-                        self._prompt_update(latest_version, download_url, release_info.get("body", ""))
+            last_check = settings.get('last_update_check', 0)
+            interval = settings.get('update_check_interval', 86400)  # Varsayılan: 24 saat
+            
+            return (time.time() - last_check) > interval
+        except Exception:
+            return True  # Hata durumunda kontrol yap
+
+    def update_last_check_time(self):
+        """Son kontrol zamanını günceller"""
+        try:
+            with open(self.settings_path, 'r+') as f:
+                settings = json.load(f)
+                settings['last_update_check'] = int(time.time())
+                f.seek(0)
+                json.dump(settings, f, indent=4)
+                f.truncate()
         except Exception as e:
-            logging.error(f"Güncelleme kontrolü sırasında hata: {e}")
+            logging.error(f"Ayarlar güncellenirken hata: {e}")
+
+    def check_for_updates(self, force=False):
+        """Güncelleme kontrolü yapar"""
+        try:
+            if not force and (time.time() - self.last_check) < 3600:  # 1 saatten azsa atla
+                return {'update_available': False}
+            
+            self.last_check = time.time()
+            response = requests.get(
+                f'https://api.github.com/repos/{self.github_username}/{self.repo_name}/releases/latest',
+                headers={'Accept': 'application/json'}
+            )
+            response.raise_for_status()
+            
+            # JSON verisini güvenli bir şekilde parse et
+            try:
+                data = response.json()
+                latest_version = data['tag_name'].lstrip('v')
+                
+                if version.parse(latest_version) > version.parse(self.current_version):
+                    return {
+                        'update_available': True,
+                        'latest_version': latest_version,
+                        'release_notes': data['body']
+                    }
+                return {'update_available': False}
+            except (ValueError, KeyError) as e:
+                logging.error(f"JSON parse hatası: {e}")
+                return {'update_available': False, 'error': str(e)}
+                
+        except Exception as e:
+            logging.error(f"Güncelleme kontrol hatası: {e}")
+            return {'update_available': False, 'error': str(e)}
 
     def _find_download_url(self, release_info):
         for asset in release_info["assets"]:

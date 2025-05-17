@@ -3,16 +3,20 @@ Tezgah modeli
 """
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.orm import relationship
-from database.connection import Base
+from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 
-class Tezgah(Base):
+Base = declarative_base()
+
+class TezgahModel(Base):
     __tablename__ = 'tezgah'
+    __table_args__ = {'extend_existing': True}  # Çakışmayı önle
     
     id = Column(Integer, primary_key=True)
-    numarasi = Column(String(50), unique=True, nullable=False)
+    tezgah_no = Column(String(50), unique=True)
+    lokasyon = Column(String(100))
+    durum = Column(String(20))
     aciklama = Column(String(255), nullable=True, comment='Tezgah açıklaması')
-    durum = Column(String(20), default='aktif')
     created_at = Column(DateTime, default=datetime.now)
     updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
     
@@ -21,4 +25,4 @@ class Tezgah(Base):
     pil_degisimler = relationship("PilDegisim", back_populates="tezgah", cascade="all, delete-orphan")
     
     def __repr__(self):
-        return f"<Tezgah(numarasi='{self.numarasi}', durum='{self.durum}')>"
+        return f"<TezgahModel(tezgah_no='{self.tezgah_no}', durum='{self.durum}')>"

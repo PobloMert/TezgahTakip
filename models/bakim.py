@@ -10,16 +10,11 @@ Base = declarative_base()
 # BaseModel removed to match existing database structure
 
 class Tezgah(Base):
-    id = Column(Integer, primary_key=True)
     __tablename__ = 'tezgah'
-    __table_args__ = (
-        # Eski veritabanı için indeks kaldırıldı
-    )
-
+    id = Column(Integer, primary_key=True)
     numarasi = Column(String, unique=True, nullable=False, index=True)
-    # Eski veritabanı yapısı için kaldırıldı
-    bakimlar = relationship("Bakim", back_populates="tezgah", cascade="all, delete-orphan")
-    pil_degisimleri = relationship("PilDegisim", back_populates="tezgah", cascade="all, delete-orphan")
+    bakimlar = relationship("Bakim", back_populates="tezgah")
+    pil_degisimleri = relationship("PilDegisim", back_populates="tezgah")
 
 class Bakim(Base):
     __tablename__ = 'bakimlar'
@@ -35,14 +30,23 @@ class Bakim(Base):
 
 class PilDegisim(Base):
     id = Column(Integer, primary_key=True)
-    __tablename__ = 'pil_degisim'
+    __tablename__ = 'pil_degisimleri'
     __table_args__ = (
         Index('idx_pil_degisim_tarih', 'tarih'),
         Index('idx_pil_degisim_tezgah_eksen', 'tezgah_id', 'eksen'),
     )
 
     tezgah_id = Column(Integer, ForeignKey('tezgah.id', ondelete='CASCADE'), nullable=False, index=True)
-    eksen = Column(String, nullable=False, index=True)
+    # Eksen seçenekleri
+    EKSENLER = [
+        ('X', 'X Ekseni'),
+        ('Y', 'Y Ekseni'),
+        ('Z', 'Z Ekseni'),
+        ('B', 'B Ekseni'),
+        ('A', 'A Ekseni'),
+        ('TUM', 'Tüm Eksenler')
+    ]
+    eksen = Column(String, nullable=False, default='TUM')
     pil_modeli = Column(String, nullable=False, index=True)
     tarih = Column(String, nullable=False, index=True)
     bakim_yapan = Column(String, nullable=False, index=True)
