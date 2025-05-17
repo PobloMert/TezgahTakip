@@ -1,20 +1,20 @@
 import sys
 import os
-
-# Proje dizinini PYTHONPATH'e ekle
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.insert(0, project_root)
+from PyQt5.QtWidgets import QApplication, QMainWindow, QTabWidget, QVBoxLayout, QWidget, QLabel, QPushButton, QTableView
+from PyQt5.QtCore import QTimer
 import logging
-from PyQt5.QtWidgets import QMainWindow, QTabWidget, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QMainWindow, QTabWidget, QVBoxLayout, QWidget, QLabel, QPushButton, QTableView
 from ui.maintenance_tab import MaintenanceTab
 from ui.battery_tab import BatteryTab
 from ui.dashboard_tab import DashboardTab
 from ui.reports_tab import ReportsTab
 from utils.updater import AutoUpdater
+from ui.styles import apply_theme
 
 class TezgahTakipApp(QMainWindow):
-    def __init__(self):
+    def __init__(self, db_manager=None):
         super().__init__()
+        self.db_manager = db_manager
         self.setWindowTitle("Tezgah Takip Programı")
         self.resize(1024, 768)
 
@@ -24,7 +24,7 @@ class TezgahTakipApp(QMainWindow):
         # Tab'ları ekle
         self.maintenance_tab = MaintenanceTab()
         self.battery_tab = BatteryTab()
-        self.dashboard_tab = DashboardTab()
+        self.dashboard_tab = DashboardTab(db_manager)  # db_manager eklendi
         self.reports_tab = ReportsTab()
 
         self.tab_widget.addTab(self.maintenance_tab, "Bakım Defteri")
@@ -45,12 +45,17 @@ class TezgahTakipApp(QMainWindow):
 
         # Otomatik güncelleme
         self.updater = AutoUpdater(
-            github_username="kullanici_adi",
+            github_username="PobloMert",  # Düzeltildi
             repo_name="TezgahTakipQt",
             current_version="1.0.0"
         )
         self.updater.check_for_updates()
         
+        # Animasyon için timer
+        self.animation_timer = QTimer()
+        self.animation_timer.timeout.connect(self.update_animations)
+        self.animation_timer.start(30)  # 30ms'de bir animasyon güncelle
+
     def on_tab_changed(self, index):
         """Sekmeler arasında geçiş yapıldığında çağrılır"""
         # Tüm sekmelere deaktif olduklarını bildir
@@ -60,3 +65,32 @@ class TezgahTakipApp(QMainWindow):
             if hasattr(tab, 'set_active_status'):
                 # True/False durumunu yeni sekmenin indeks numarasına göre ayarla
                 tab.set_active_status(i == index)
+
+    def update_styles(self, style_manager):
+        """Tüm widget'lara yeni stilleri uygula"""
+        # Tüm widget'ları tarayarak stillerini güncelle
+        for widget in self.findChildren(QWidget):
+            widget_type = 'default'
+            
+            if isinstance(widget, QLabel):
+                widget_type = 'labels'
+            elif isinstance(widget, QPushButton):
+                widget_type = 'buttons'
+            elif isinstance(widget, QTableView):
+                widget_type = 'tables'
+                
+            style_manager.apply_style(widget, widget_type)
+
+    def update_animations(self):
+        """Widget animasyonlarını günceller"""
+        for widget in self.findChildren(QWidget):
+            if hasattr(widget, 'update_animation'):
+                widget.update_animation()
+
+# Uygulama başlat
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    apply_theme(app, 'dark')  # Modern dark tema
+    window = TezgahTakipApp()
+    window.show()
+    sys.exit(app.exec_())

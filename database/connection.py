@@ -1,20 +1,42 @@
+"""
+Veritabanı bağlantı modülü (Güvenli Sürüm)
+"""
+import sqlite3
+from typing import List, Dict, Any, Optional
+import logging
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models.maintenance import Base
 import os
 import sys
-import logging
 import tempfile
 from contextlib import contextmanager
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
 
 class DatabaseManager:
-    def __init__(self, db_path='tezgah_takip.db'):
+    def __init__(self, db_path: str = 'tezgah_takip.db'):
         # İki farklı ortam için uygun veritabanı yolunu hesapla:
         # 1. Normal Python çalıştırması
         # 2. PyInstaller ile paketlenmiş EXE
         self.db_path = self.get_database_path(db_path)
-        self.engine = create_engine(f'sqlite:///{self.db_path}')
+        self.engine = create_engine(
+            f'sqlite:///{self.db_path}',
+            connect_args={'timeout': 30, 'check_same_thread': False}
+        )
         self.Session = sessionmaker(bind=self.engine)
+        self.connection = sqlite3.connect(self.db_path)
+        
+        # SQLite optimizasyon PRAGMA'ları
+        self.connection.execute('PRAGMA journal_mode = WAL')
+        self.connection.execute('PRAGMA synchronous = NORMAL')
+        self.connection.execute('PRAGMA cache_size = -10000')
+        self.connection.execute('PRAGMA temp_store = MEMORY')
+        self.connection.execute('PRAGMA foreign_keys = ON')
+        
+        # Önbellek mekanizması
+        self._cache = {}
+        self.cache_timeout = 300  # 5 dakika
 
     def get_database_path(self, db_path):
         """Çalışma ortamına göre uygun veritabanı yolunu döndürür."""
@@ -44,23 +66,61 @@ class DatabaseManager:
             logging.error(f"Veritabanı yolu hatası: {e}, geçici yol kullanılıyor: {temp_db}")
             return temp_db
     
-    def create_tables(self):
-        """Veritabanı tablolarını oluşturur."""
+    def execute_query(self, query: str, params: Optional[Dict[str, Any]] = None, safe: bool = True) -> List[Dict[str, Any]]:
+        """
+        Güvenli sorgu çalıştırma
+        :param safe: True ise parametre binding zorunlu
+        """
+        if safe and not params:
+            raise ValueError("Güvenlik nedeniyle parametresiz sorgu yasak")
+            
         try:
-            # Base.metadata.drop_all(self.engine)  # Tüm tabloları silmek için (tehlikeli)
-            Base.metadata.create_all(self.engine)
-            logging.info(f'Veritabanı tabloları oluşturuldu veya mevcut tablolar kontrol edildi. DB Yolu: {self.db_path}')
+            cursor = self.connection.cursor()
+            cursor.execute(query, params if params else {})
             
-            # Tablo oluşturma başarılı mı diye kontrol et
-            from sqlalchemy import inspect
-            inspector = inspect(self.engine)
-            tables = inspector.get_table_names()
-            logging.info(f"Mevcut tablolar: {tables}")
+            if query.strip().upper().startswith('SELECT'):
+                columns = [col[0] for col in cursor.description]
+                return [dict(zip(columns, row)) for row in cursor.fetchall()]
             
-            return True
+            self.connection.commit()
+            return []
+            
         except Exception as e:
-            logging.error(f'Tablo oluşturma hatası: {e}')
-            return False
+            self.connection.rollback()
+            logging.error(f"Sorgu hatası: {str(e)}")
+            raise
+
+    async def execute_query_async(self, query: str, params: Optional[Dict[str, Any]] = None):
+        """Asenkron veritabanı sorgusu"""
+        with ThreadPoolExecutor() as executor:
+            loop = asyncio.get_event_loop()
+            result = await loop.run_in_executor(
+                executor, 
+                lambda: self.execute_query(query, params)
+            )
+            return result
+
+    def create_tables(self):
+        """Tüm veritabanı tablolarını oluştur"""
+        try:
+            # Önce mevcut bağlantıları kapat
+            if hasattr(self, 'engine') and self.engine:
+                self.engine.dispose()
+                
+            # Veritabanı dosyasını silmeyi dene (eğer varsa)
+            if os.path.exists(self.db_path):
+                try:
+                    os.remove(self.db_path)
+                    logging.info(f"Eski veritabanı silindi: {self.db_path}")
+                except PermissionError:
+                    logging.warning(f"Veritabanı silinemedi, zaten temizlenmiş olabilir: {self.db_path}")
+                
+            # Yeni tabloları oluştur
+            Base.metadata.create_all(self.engine)
+            logging.info("Tüm tablolar başarıyla oluşturuldu")
+        except Exception as e:
+            logging.error(f"Tablo oluşturma hatası: {e}")
+            raise
 
     def get_session(self):
         """Veritabanı oturumu döndürür
@@ -94,5 +154,94 @@ class DatabaseManager:
             raise e
         finally:
             session.close()
+
+    def get_tezgah_count(self):
+        """Tezgah tablosundaki kayıt sayısını döndürür"""
+        try:
+            result = self.execute_query(
+                "SELECT COUNT(*) as count FROM tezgah",
+                params={}, safe=False
+            )
+            return result[0]["count"] if result else 0
+        except Exception as e:
+            logging.error(f"Tezgah sayısı alınamadı: {e}")
+            return 0
+            
+    def get_pending_maintenance_count(self):
+        """Bakım bekleyen tezgah sayısını döndürür"""
+        try:
+            result = self.execute_query(
+                """SELECT COUNT(*) as count FROM bakimlar 
+                WHERE durum = 'Bekliyor'""",
+                params={}, safe=False
+            )
+            return result[0]["count"] if result else 0
+        except Exception as e:
+            logging.error(f"Bakım bekleyen tezgah sayısı alınamadı: {e}")
+            return 0
+
+    def get_last_maintenance_date(self):
+        """Son bakım tarihini döndürür"""
+        try:
+            result = self.execute_query(
+                """SELECT MAX(tarih) as last_date FROM bakimlar""",
+                params={}, safe=False
+            )
+            return result[0]["last_date"] if result and result[0]["last_date"] else "Kayıt Yok"
+        except Exception as e:
+            logging.error(f"Son bakım tarihi alınamadı: {e}")
+            return "Hata"
+
+    def get_completed_maintenance_count(self):
+        """Tamamlanan bakım sayısını döndürür"""
+        try:
+            result = self.execute_query(
+                """SELECT COUNT(*) as count FROM bakimlar 
+                WHERE durum = 'Tamamlandı'""",
+                params={}, safe=False
+            )
+            return result[0]["count"] if result else 0
+        except Exception as e:
+            logging.error(f"Tamamlanan bakım sayısı alınamadı: {e}")
+            return 0
+
+    def get_maintenance_stats(self):
+        """Bakım istatistiklerini döndürür"""
+        try:
+            return {
+                "pending": self.get_pending_maintenance_count(),
+                "completed": self.get_completed_maintenance_count(),
+                "last_date": self.get_last_maintenance_date()
+            }
+        except Exception as e:
+            logging.error(f"Bakım istatistikleri alınamadı: {e}")
+            return {}
+
+    def get_system_stats(self):
+        """Tüm sistem istatistiklerini tek metodda topla"""
+        try:
+            return {
+                'tezgah_count': self.get_tezgah_count(),
+                'pending_maintenance': self.get_pending_maintenance_count(),
+                'completed_maintenance': self.get_completed_maintenance_count(),
+                'last_maintenance': self.get_last_maintenance_date()
+            }
+        except Exception as e:
+            logging.error(f"Sistem istatistikleri alınamadı: {e}")
+            return {}
+
+    def optimize_indexes(self):
+        """Veritabanı indekslerini optimize et"""
+        queries = [
+            "ANALYZE sqlite_master;",
+            "REINDEX;",
+            "VACUUM;"
+        ]
+        
+        for query in queries:
+            try:
+                self.execute_query(query, safe=False)
+            except Exception as e:
+                logging.warning(f"Optimizasyon hatası: {e}")
 
 db_manager = DatabaseManager()

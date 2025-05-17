@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import func
 from datetime import datetime
+import sqlalchemy
 
 Base = declarative_base()
 
@@ -21,18 +22,14 @@ class Tezgah(Base):
     pil_degisimleri = relationship("PilDegisim", back_populates="tezgah", cascade="all, delete-orphan")
 
 class Bakim(Base):
+    __tablename__ = 'bakimlar'
+    
     id = Column(Integer, primary_key=True)
-    __tablename__ = 'bakim'
-    __table_args__ = (
-        Index('idx_bakim_tarih', 'tarih'),
-        Index('idx_bakim_tezgah_tarih', 'tezgah_id', 'tarih'),
-    )
-
     tezgah_id = Column(Integer, ForeignKey('tezgah.id', ondelete='CASCADE'), nullable=False, index=True)
-    tarih = Column(String, nullable=False, index=True)
+    tarih = Column(DateTime, default=datetime.now, nullable=False, index=True)
     bakim_yapan = Column(String, nullable=False, index=True)
     aciklama = Column(String)
-
+    durum = Column(String, default='Bekliyor', nullable=False, index=True)
 
     tezgah = relationship("Tezgah", back_populates="bakimlar")
 

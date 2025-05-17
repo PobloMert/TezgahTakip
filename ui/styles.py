@@ -86,6 +86,38 @@ class Styles:
     }
     """
 
+from PyQt5.QtGui import QColor
+
+MODERN_DARK = """
+QMainWindow {
+    background-color: #2d2d2d;
+    color: #f0f0f0;
+}
+QPushButton {
+    background-color: #3a3a3a;
+    border-radius: 4px;
+    padding: 5px;
+    min-width: 80px;
+}
+QPushButton:hover {
+    background-color: #4a4a4a;
+}
+QChartView {
+    background: transparent;
+    border: 1px solid #444;
+    border-radius: 8px;
+}
+"""
+
+THEMES = {
+    'dark': MODERN_DARK,
+    'light': """
+QMainWindow {
+    background-color: #f5f5f5;
+}
+"""
+}
+
 def apply_global_styles(app):
     # Global stil ayarları
     app.setStyle('Fusion')
@@ -98,3 +130,6 @@ def apply_global_styles(app):
         {Styles.BUTTONS}
         {Styles.INPUT_STYLES}
     ''')
+
+def apply_theme(app, theme_name='dark'):
+    app.setStyleSheet(THEMES.get(theme_name, MODERN_DARK))
