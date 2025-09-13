@@ -1,0 +1,55 @@
+# =============================================================================
+# Tezgah Takip - AI Güçlü Fabrika Bakım Yönetim Sistemi
+# Bağımlılık Yönetimi Dosyası
+# =============================================================================
+
+# =============================================================================
+# TEMEL GEREKSİNİMLER (Zorunlu)
+# =============================================================================
+# GUI Framework
+PyQt5>=5.15.11
+
+# Veritabanı ORM
+SQLAlchemy>=2.0.0
+
+# Veri İşleme
+numpy>=1.24.0
+pandas>=2.0.0
+
+# Veri Görselleştirme
+matplotlib>=3.7.0
+plotly>=5.15.0
+
+# HTTP İstekleri
+requests>=2.31.0
+
+# Tarih/Saat İşlemleri
+python-dateutil>=2.8.2
+pytz>=2023.3
+
+# =============================================================================
+# AI VE MAKİNE ÖĞRENMESİ (Opsiyonel - requirements-ai.txt'de)
+# =============================================================================
+# google-generativeai>=0.3.0
+# tensorflow>=2.13.0
+# scikit-learn>=1.3.0
+# prophet>=1.1.4
+# nltk>=3.8.1
+# opencv-python>=4.8.0
+
+# =============================================================================
+# GELİŞMİŞ ÖZELLİKLER (Opsiyonel - requirements-advanced.txt'de)
+# =============================================================================
+# seaborn>=0.12.0
+# cryptography>=41.0.0
+# pillow>=10.0.0
+# reportlab>=4.0.0
+
+# =============================================================================
+# GELİŞTİRME ARAÇLARI (Opsiyonel - requirements-dev.txt'de)
+# =============================================================================
+# pytest>=7.4.0
+# pytest-qt>=4.2.0
+# black>=23.7.0
+# flake8>=6.0.0
+# mypy>=1.5.0

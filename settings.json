@@ -1,0 +1,23 @@
+{
+    "theme": "light",
+    "general": {
+        "start_tab": "dashboard",
+        "auto_save": true,
+        "theme": "system"
+    },
+    "database": {
+        "path": "C:/Users/inanmakina/Desktop/Tezgah Takip/backups/bakim_uygulamasi_20250829_155943.db"
+    },
+    "appearance": {
+        "font_family": "Arial",
+        "font_size": 9
+    },
+    "backup": {
+        "auto_backup_enabled": true,
+        "backup_interval_days": 7
+    },
+    "update": {
+        "check_on_startup": true,
+        "auto_download": false
+    }
+}
