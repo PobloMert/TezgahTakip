@@ -2,7 +2,6 @@
 
 ## 📋 Özellikler
 
-- **Tezgah Yönetimi**: 196 tezgahın takibi
 - **Bakım Planlama**: Otomatik bakım hatırlatmaları  
 - **Pil Takibi**: Pil ömrü ve değişim takibi
 - **AI Destekli Analiz**: Gemini 2.0 Flash ile akıllı analiz
@@ -114,3 +113,4 @@ Bu uygulama Python ve PyQt5 ile geliştirilmiştir. Kaynak kodlar güvenlik nede
 - Google Gemini 2.0 Flash AI
 - Otomatik güncelleme sistemi
 - Kapsamlı güvenlik önlemleri
+
